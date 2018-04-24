@@ -215,7 +215,7 @@ function get_telem,times,time_in_sec=time_in_sec,debug=debug,$
 		;
 		; Add distance and doppler corrections, if requested
 		;
-		irr=counts_to_irr(gtimes_ms,waves,counts,delta_waves,/time_in_ms,/wave_in_nm,do_plot=do_plot)
+		irr=counts_to_irr(gtimes_ms,waves,counts,delta_waves,/time_in_ms,/wave_in_nm)
 
 	endif else begin
 		dr=-1

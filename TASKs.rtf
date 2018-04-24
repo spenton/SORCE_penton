@@ -20,17 +20,17 @@
 	All code is in IDL and is provided via this git repository:
 \f1\b \cf3 \strokec3  {\field{\*\fldinst{HYPERLINK "https://github.com/spenton/SORCE_penton.git"}}{\fldrslt 
 \f2\b0 \cf3 \ul \ulc3 \strokec3 https://github.com/spenton/SORCE_penton.git}} 
-\f2\b0 \cf3 \strokec3 . The conversion from telemetry to irradiance in watts/m^2 involves the following steps:\
+\f2\b0 \cf3 \strokec3 . The plots presented here were created with \'93make_plots.pro\'94, with the exception of the QuickScan analysis that appears later. \
 \
 \pard\pardeftab720\sl288\slmult1\partightenfactor0
 
 \f1\b \cf3 \ul \ulc3 \strokec3 Read the raw telemetry\cf3 \ulnone \strokec3 : 
 \f2\b0 \cf3 \strokec3 The routine get_telem.pro is an IDL routine to read the provided telemetry ascii file for each of the 5 orbits. It calls a base routine (get_instrumentTelemetry.pro) then uses the input start and end times to parse the full telemetry structure. An IDL structure with all telemetry items of interest is returned. As described in the instructions, the routine gp_to_wave.pro converts from grating position to wavelength.\
-\
+ \
 
 \f1\b \cf3 \ul \ulc3 \strokec3 Determine Irradiance
 \fs18\fsmilli9333 \cf3 \super \ulc3 \strokec3 1
-\fs28 \cf3 \nosupersub \ulc3 \strokec3 : \
+\fs28 \cf3 \nosupersub \ulc3 \strokec3 :\
 \pard\pardeftab720\sl288\slmult1\partightenfactor0
 
 \f2\b0 \cf3 \ulnone \strokec3 \
