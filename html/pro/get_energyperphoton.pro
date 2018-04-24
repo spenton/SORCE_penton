@@ -21,7 +21,7 @@ function get_energyperphoton,wave,wave_in_nm=wave_in_nm,verbose=verbose,debug=de
 	if n_elements(verbose) ne 1 then verbose=0
 	if n_elements(debug) ne 1 then debug=0
 	if n_elements(wave_in_nm) ne 1 then wave_in_nm=1 ; otherwise, it's in meters
-	RCS_ID="$Id: get_energyperphoton.pro,v 1.2 2018/04/24 05:46:15 penton Exp $"
+	RCS_ID="$Id: get_energyperphoton.pro,v 1.3 2018/04/24 16:46:22 penton Exp penton $"
 	h=get_h()
 	c=get_c()
 	if debug then help,wave

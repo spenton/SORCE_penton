@@ -17,7 +17,7 @@
 function get_detectorTemp,verbose=verbose,debug=debug
 	if n_elements(verbose) ne 1 then verbose=0
 	if n_elements(debug) ne 1 then debug=0
-	RCS_ID="$Id: get_detectorTemp.pro,v 1.3 2018/04/24 16:20:26 penton Exp penton $"
+	RCS_ID="$Id: get_detectorTemp.pro,v 1.4 2018/04/24 16:46:22 penton Exp penton $"
 	tdir=get_laspdir(/txt)
 	file='detectorTemp.txt'
 	if verbose then message,/info,'Reading Detector Temperatures from '+tdir+file
