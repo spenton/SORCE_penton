@@ -36,7 +36,7 @@
 \f2\b0 \cf3 \ulnone \strokec3 \
 Watt/m^2 is obtained by using the energy (in J) per photon (get_energyperphoton.pro) and the number of photons per cm^2 per second per nm (get_ph_per_s_cm2_nm.pro), assuming a wavelength independent area of 0.01 cm^2. These routines determine the bin size (dispersion) from the telemetry to convert between irradiance and spectral irradiance (irradiance/nm). To the right is a comparison of the Up vs Down Scan Data (the Down Scan Data has been shifted up).\
 \
-Zooming in on the SiII lines (and losing the offset), a clear shift of about 0.17 nm is obvious. A ratio of the Up/Down Scan data clearly shows the offset. Both appear to be shifted wrt the reference spectrum, 0.014 nm (Up) and 0.031 nm (Down)  \page \pard\pardeftab720\sl288\slmult1\partightenfactor0
+Zooming in on the SiII lines (and losing the offset), a clear shift of about 0.17 nm is obvious. A ratio of the Up/Down Scan data clearly shows the offset. Both appear to be shifted wrt the reference spectrum, 0.014 nm (Up) and 0.031 nm (Down)    \page \pard\pardeftab720\sl288\slmult1\partightenfactor0
 
 \f1\b \cf3 \ul \ulc3 \strokec3 Optional corrections :\cf3 \ulnone \strokec3  It was unclear whether debugging this offset was part of the assignment, but I thought I would try a few basic calibrations anyway.\cf3 \ul \ulc3 \strokec3 \
 \
@@ -95,7 +95,7 @@ An example of the returned final structure of get_telem() is:\
 
 \f2\fs28 \cf3 \cb1 \CocoaLigature1 \strokec3 \
 \
-Repeating the above plots with DOPPCORR, DISTCORR, and DARKCORR enabled produces very similar results (also the offsets have all been reduced by 0.001 nm, and the flux calibration looks better).\
+Repeating the above plots with DOPPCORR, DISTCORR, and DARKCORR enabled produces very similar results (although the offsets have all been reduced by 0.001 nm, and the flux calibration looks better).\
 \
 \pard\pardeftab720\sl288\slmult1\partightenfactor0
 
