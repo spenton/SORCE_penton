@@ -18,7 +18,7 @@
 function get_inttimes,verbose=verbose,debug=debug
 	if n_elements(verbose) ne 1 then verbose=0
 	if n_elements(debug) ne 1 then debug=0
-	RCS_ID="$Id: get_inttimes.pro,v 1.3 2018/04/24 16:46:22 penton Exp penton $"
+	RCS_ID="$Id: get_inttimes.pro,v 1.3 2018/04/24 16:46:22 penton Exp $"
 	tdir=get_laspdir(/txt)
 	file='integrationTime.txt'
 	readcol,tdir+file,time_ms,intTime,format='(D,F)',SKIPLINE=1,/NAN,delimiter=','

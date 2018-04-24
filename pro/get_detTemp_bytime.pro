@@ -22,7 +22,7 @@ function get_detTemp_bytime,time_ms,use_interpol=use_interpol,verbose=verbose,de
 	if n_elements(debug) ne 1 then debug=0
 	if n_elements(verbose) ne 1 then verbose=0
 	if n_elements(use_interpol) ne 1 then use_interpol=1
-	RCS_ID="$Id: get_detTemp_bytime.pro,v 1.3 2018/04/24 16:46:22 penton Exp penton $"
+	RCS_ID="$Id: get_detTemp_bytime.pro,v 1.3 2018/04/24 16:46:22 penton Exp $"
 	detTemp=get_detectorTemp(verbose=verbose,debug=debug)
 	if verbose then help,detTemp,/str
 	dtime_ms=double(time_ms)
