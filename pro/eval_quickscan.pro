@@ -1,3 +1,5 @@
+; docformat = 'rst'
+
 ;+
 ; NAME: EVAL_QUICKSCAN
 ;
@@ -5,7 +7,7 @@
 ;
 ;-
 pro eval_quickscan
-		rcs_id="$Id: eval_quickscan.pro,v 1.3 2018/04/24 16:02:51 penton Exp $"
+		rcs_id="$Id: eval_quickscan.pro,v 1.4 2018/04/24 16:46:22 penton Exp penton $"
 		pngdir=get_laspdir(/png)
 		colors=tag_names(!color)
 		QuickScan=[9.434017775100002E14, 9.434062192200002E14]

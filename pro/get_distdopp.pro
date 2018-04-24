@@ -1,3 +1,5 @@
+; docformat = 'rst'
+
 ;+
 ;	NAME: get_distdopp
 ;
@@ -17,7 +19,7 @@
 ;-
 function get_distdopp,verbose=verbose
 	if n_elements(verbose) ne 1 then verbose=0
-	RCS_ID="$Id: get_distdopp.pro,v 1.2 2018/04/24 14:49:13 penton Exp $"
+	RCS_ID="$Id: get_distdopp.pro,v 1.3 2018/04/24 16:46:22 penton Exp penton $"
 	tdir=get_laspdir(/txt)
 	file='distanceAndDoppler.txt'
 	if verbose then message,/info,'Reading DOPP/DIST factors from '+tdir+file

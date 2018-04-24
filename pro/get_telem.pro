@@ -1,3 +1,5 @@
+; docformat = 'rst'
+
 ;+
 ;  NAME: get_telem.pro
 ;
@@ -75,7 +77,7 @@ function get_telem,times,time_in_sec=time_in_sec,debug=debug,$
 	if n_elements(debug) ne 1 then debug=1
 	if n_elements(time_in_sec) ne 1 then time_in_sec=0
 	;
-	RCS_ID="$Id: get_telem.pro,v 1.4 2018/04/24 16:20:26 penton Exp penton $"
+	RCS_ID="$Id: get_telem.pro,v 1.5 2018/04/24 16:46:22 penton Exp penton $"
 	;
 	; Define Constants
 	;
