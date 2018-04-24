@@ -75,7 +75,7 @@ function get_telem,times,time_in_sec=time_in_sec,debug=debug,$
 	if n_elements(debug) ne 1 then debug=1
 	if n_elements(time_in_sec) ne 1 then time_in_sec=0
 	;
-	RCS_ID="$Id: get_telem.pro,v 1.3 2018/04/24 14:49:13 penton Exp $"
+	RCS_ID="$Id: get_telem.pro,v 1.4 2018/04/24 16:20:26 penton Exp penton $"
 	;
 	; Define Constants
 	;
