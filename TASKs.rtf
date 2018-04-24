@@ -1,0 +1,120 @@
+{\rtf1\ansi\ansicpg1252\cocoartf1504\cocoasubrtf830
+{\fonttbl\f0\fnil\fcharset0 HelveticaNeue-Medium;\f1\fnil\fcharset0 HelveticaNeue-Bold;\f2\fnil\fcharset0 HelveticaNeue;
+\f3\fnil\fcharset0 Monaco;}
+{\colortbl;\red255\green255\blue255;\red26\green26\blue26;\red0\green0\blue0;\red255\green255\blue255;
+\red252\green39\blue18;}
+{\*\expandedcolortbl;;\cssrgb\c13534\c13537\c13534;\cssrgb\c0\c0\c0;\cssrgb\c100000\c100000\c100000\c93000;
+\cssrgb\c100000\c25271\c7591;}
+\margl1080\margr720
+\deftab720
+\pard\tx6000\pardeftab720\sl312\slmult1\partightenfactor0
+
+\f0\fs20 \cf2 \expnd0\expndtw0\kerning0
+\up0 \nosupersub \ulnone \outl0\strokewidth0 \strokec2 \
+\pard\pardeftab720\sl288\slmult1\partightenfactor0
+
+\f1\b\fs28 \cf3 \strokec3 Please calculate the irradiance in watts/m^2 and compare the scan data. Provide plots of your results along with your code. Specifically, plot the region around the two emission lines at ~180nm. Also, calculate the ratio of each scan wrt the reference spectrum and plot the results. \
+\pard\pardeftab720\sl288\slmult1\partightenfactor0
+
+\f2\b0 \cf3 \strokec3 \
+	All code is in IDL and is provided via this git repository:
+\f1\b \cf3 \strokec3  {\field{\*\fldinst{HYPERLINK "https://github.com/spenton/SORCE_penton.git"}}{\fldrslt 
+\f2\b0 \cf3 \ul \ulc3 \strokec3 https://github.com/spenton/SORCE_penton.git}} 
+\f2\b0 \cf3 \strokec3 . The conversion from telemetry to irradiance in watts/m^2 involves the following steps:\
+\
+\pard\pardeftab720\sl288\slmult1\partightenfactor0
+
+\f1\b \cf3 \ul \ulc3 \strokec3 Read the raw telemetry\cf3 \ulnone \strokec3 : 
+\f2\b0 \cf3 \strokec3 The routine get_telem.pro is an IDL routine to read the provided telemetry ascii file for each of the 5 orbits. It calls a base routine (get_instrumentTelemetry.pro) then uses the input start and end times to parse the full telemetry structure. An IDL structure with all telemetry items of interest is returned. As described in the instructions, the routine gp_to_wave.pro converts from grating position to wavelength.\
+\
+
+\f1\b \cf3 \ul \ulc3 \strokec3 Determine Irradiance
+\fs18\fsmilli9333 \cf3 \super \ulc3 \strokec3 1
+\fs28 \cf3 \nosupersub \ulc3 \strokec3 : \
+\pard\pardeftab720\sl288\slmult1\partightenfactor0
+
+\f2\b0 \cf3 \ulnone \strokec3 \
+Watt/m^2 is obtained by using the energy (in J) per photon (get_energyperphoton.pro) and the number of photons per cm^2 per second per nm (get_ph_per_s_cm2_nm.pro), assuming a wavelength independent area of 0.01 cm^2. These routines determine the bin size (dispersion) from the telemetry to convert between irradiance and spectral irradiance (irradiance/nm). To the right is a comparison of the Up vs Down Scan Data (the Down Scan Data has been shifted up).\
+\
+Zooming in on the SiII lines (and losing the offset), a clear shift of about 0.17 nm is obvious. A ratio of the Up/Down Scan data clearly shows the offset. Both appear to be shifted wrt the reference spectrum, 0.014 nm (Up) and 0.031 nm (Down)  \page \pard\pardeftab720\sl288\slmult1\partightenfactor0
+
+\f1\b \cf3 \ul \ulc3 \strokec3 Optional corrections :\cf3 \ulnone \strokec3  It was unclear whether debugging this offset was part of the assignment, but I thought I would try a few basic calibrations anyway.\cf3 \ul \ulc3 \strokec3 \
+\
+\pard\pardeftab720\sl288\slmult1\partightenfactor0
+
+\f2\b0 \cf3 \ulc3 \strokec3 Return temperatures as part of the telemetry. \cf3 \ulnone \strokec3 The routines get_detectorTemp.pro  and get_detTemp_bytime.pro interpolate the provided temperature data to include temperatures in the returned structure. \
+\cf3 \ul \ulc3 \strokec3 \
+Add doppler correction. \cf3 \ulnone \strokec3 The routine DOPPCORR.pro  provides a spacecraft doppler correction to the wavelengths. The routine get_distdopp_bytime.pro interpolates into the provided doppler data to return the appropriate doppler (and distance) factors. The doppler factor provided is assumed to be (1.0+v/c). The assumption is backed up by the scale of the corrections (~4 km/s) and the maximum expected for the orbit indicated (~8 km/s max velocity wrt the sun).\
+\cf3 \ul \ulc3 \strokec3 \
+Add distance correction.\cf3 \ulnone \strokec3  The routine DISTCORR.pro applies a distance correction to the counts arrays. This routine also calls get_distdopp_bytime.pro. It assumes that the provided distance factor is (R/R0), and the correction is applied as 1./distancefactor^2.\
+\
+\cf3 \ul \ulc3 \strokec3 Add temperature-dependent background correction. \cf3 \ulnone \strokec3 The routines darkcorr.pro and  get_bkgcounts_byinttime.pro are called to interpolate the provided temperature data to and apply a temperature dependent background correction. Note that a simple parabola fit (using POLY_FIT) was constructed to model the background correction. This analysis can be found in eval_darkcorr.pro. The adopted solution was bkg_cps = -69.795 +6.119*temp -0.127*temp^2, as shown in the figure.\cf3 \ul \ulc3 \strokec3 \
+\pard\pardeftab720\sl288\slmult1\partightenfactor0
+\cf3 \ulnone \strokec3 \
+\
+\
+\
+\
+An example of the returned final structure of get_telem() is:\
+\
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardeftab20\partightenfactor0
+
+\f3\fs12 \cf3 \cb4 \CocoaLigature0 \strokec3 ; EXAMPLE:\
+;		DownScan=[9.434134508500002E14, 9.434178736700002E14]\
+;		DS_telem=get_telem(DownScan,/add_darkcorr,/add_distcor,/add_doppcorr)\
+;		help,DS_telem,/str\
+;\
+;   START_TIME      FLOAT       9.43413e+14\
+;   END_TIME        FLOAT       9.43418e+14\
+;   TIMES_MS        DOUBLE    Array[2354]\
+;   TIMES_S         DOUBLE    Array[2354]\
+;   TIME_MS0        DOUBLE       9.4341346e+14\
+;   TIME_S0         DOUBLE       9.4341346e+11\
+;   TEMPS           DOUBLE    Array[2354]\
+;   GGRATPOS        FLOAT     Array[2354]\
+;   GWAVES          DOUBLE    Array[2354]\
+;   GCOUNTS         FLOAT     Array[2354]\
+;   IRR             DOUBLE    Array[2354]\
+;   WAVES           DOUBLE    Array[2354]\
+;   COUNTS          DOUBLE    Array[2354]\
+;   DELTA_WAVES     DOUBLE    Array[2354]\
+;   BINSIZE         DOUBLE        0.0063524922\
+;   DOPPCORR        INT              1\
+;   DWAVES          DOUBLE    Array[2354]\
+;   DW              DOUBLE    Array[2354]\
+;   DISTCORR        INT              1\
+;   DCOUNTS         DOUBLE    Array[2354]\
+;   DR              DOUBLE    Array[2354]\
+;   DARKCORR        INT              1\
+;   BKGCOUNTS       DOUBLE    Array[2354]\
+;   BKG             DOUBLE    Array[2354]\
+;   INTTIME_S       FLOAT     Array[2354]\
+;   EDGE_TRIM       INT              2\
+\
+\pard\pardeftab720\sl288\slmult1\partightenfactor0
+
+\f2\fs28 \cf3 \cb1 \CocoaLigature1 \strokec3 \
+\
+Repeating the above plots with DOPPCORR, DISTCORR, and DARKCORR enabled produces very similar results (also the offsets have all been reduced by 0.001 nm, and the flux calibration looks better).\
+\
+\pard\pardeftab720\sl288\slmult1\partightenfactor0
+
+\f1\b \cf3 \ul \ulc3 \strokec3 What are your thoughts? \
+\pard\pardeftab720\sl288\slmult1\partightenfactor0
+
+\f2\b0 \cf3 \ulnone \strokec3 \
+There is a 0.016nm zero point offset in the wavelength solution at the SiII lines (185nm). Since Doppler, distance, and dark corrections did not move the shift between the up and down scans, a simple zero point shift doesn\'92t solve the entire problem. My initial suspicion was that there is a thermal drift to the grating mechanism that has not been accounted for. The QuickScan data could be used to prove this. However, unless I missed something, even though the temperature of the QuickScan orbit was identical to the other orbits, I don\'92t see any drift of the required magnitude  of the wavelength solution wrt time (but I did see some residual doppler corrections that I must not be catching).  \
+\
+My next guess would be some hysteresis due to the change is scan direction, but I have no data to examine this hypothesis.\
+\pard\pardeftab720\sa240\partightenfactor0
+
+\f1\b\fs48 \cf5 \kerning1\expnd-1\expndtw-5
+\strokec5  \
+\pard\tx6000\pardeftab720\sl312\slmult1\partightenfactor0
+
+\f0\b0\fs20 \cf2 \expnd0\expndtw0\kerning0
+\strokec2  \
+\pard\pardeftab720\sl288\slmult1\partightenfactor0
+
+\f2\fs12\fsmilli6000 \cf3 \super \strokec3 1
+\fs18 \cf3 \nosupersub \strokec3  The units of the reference spectrum (irradiance; watts/m^2) seem odd to be. I am accustomed to units of flux (ergs/s/cm^2/\'c5), so I was expecting spectral irradiance (watts/m^2/nm). I\'92ve matched my units to those of the reference spectrum.}

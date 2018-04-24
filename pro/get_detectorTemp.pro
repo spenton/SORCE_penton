@@ -6,7 +6,6 @@
 ; INPUT PARAMETERS:
 ;
 ;  VERBOSE   :  Set if reporting of details is desired
-;
 ;  DEBUG     :  Set to report additional information useful in debugging.
 ;
 ; OUTPUT PARAMETERS:
@@ -16,7 +15,7 @@
 function get_detectorTemp,verbose=verbose,debug=debug
 	if n_elements(verbose) ne 1 then verbose=0
 	if n_elements(debug) ne 1 then debug=0
-	RCS_ID="$Id: get_detectorTemp.pro,v 1.2 2018/04/24 05:46:15 penton Exp $"
+	RCS_ID="$Id: get_detectorTemp.pro,v 1.2 2018/04/24 05:46:15 penton Exp penton $"
 	tdir=get_laspdir(/txt)
 	file='detectorTemp.txt'
 	if verbose then message,/info,'Reading Detector Temperatures from '+tdir+file
